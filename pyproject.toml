@@ -1,9 +1,15 @@
 [project]
 name = "str8ts_solver"
-version = "0.1.0"
+version = "0.1.1"
 description = "str8ts solver using z3"
+authors = [
+  {email = "vil02_str8ts_solver@10g.pl"},
+  {name = "Piotr Idzik"}
+]
 readme = "README.md"
 requires-python = ">=3.12"
+keywords = ["str8ts", "str8ts solver", "z3"]
+
 dependencies = [
     "z3-solver==4.15.4.0"
 ]
@@ -23,3 +29,6 @@ dev = [
     "ruff==0.14.9",
     "xenon==0.9.3"
 ]
+
+[project.urls]
+repository = "https://github.com/vil02/str8ts_solver"
