@@ -1,0 +1,79 @@
+---
+name: third_party_checks
+
+'on':
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  generate_and_upload_coverage_data:
+    name: generate_and_upload_coverage_data
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - name: Validate codecov.yml file
+        run: |
+          ./validate_codecov_yml.sh
+
+      - name: Install uv and setup python
+        uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7.1.6
+        with:
+          python-version: ${{ matrix.python-version }}
+          activate-environment: "true"
+
+      - name: Install dependencies
+        run: |
+          uv pip install .[dev]
+
+      - name: Generate coverage data
+        run: |
+          ./generate_coverage_data.sh
+
+      - name: SonarCloud Scan
+        if: "! github.event.pull_request.head.repo.fork "
+        uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 # v7.0.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Upload coverage report to Codecov
+        if: "! github.event.pull_request.head.repo.fork "
+        uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+
+      - name: Upload coverage report to Codecov (tokenless)
+        if: >-
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name != github.repository
+        uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+        with:
+          fail_ci_if_error: true
+
+      - name: Upload coverage report to Codacy
+        if: "! github.event.pull_request.head.repo.fork "
+        uses: codacy/codacy-coverage-reporter-action@89d6c85cfafaec52c72b6c5e8b2878d33104c699 # v1.3.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage.xml
+
+      - name: Upload coverage report as an artifact
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: coverage_report
+          path: |
+            coverage.xml
+            htmlcov
+          if-no-files-found: error
+          retention-days: 5
+...
