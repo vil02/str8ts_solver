@@ -13,6 +13,7 @@ class Sample(typing.NamedTuple):
 # source:
 # blank: https://en.wikipedia.org/wiki/File:Str8ts9x9_Gentle_PUZ.png
 # solved: https://en.wikipedia.org/wiki/Str8ts#/media/File:Str8ts9x9_Gentle_SOL.png
+# pylint: disable=duplicate-code
 SAMPLE_1 = Sample(
     size=(9, 9),
     blocked={

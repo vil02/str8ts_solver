@@ -45,4 +45,33 @@ jobs:
       - name: Test with pytest
         run: |
           uv run pytest .
+
+  check_examples:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+        python-version: ['3.12', 3.14]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install uv and setup python
+        uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7.1.6
+        with:
+          python-version: ${{ matrix.python-version }}
+          activate-environment: "true"
+
+      - name: Install basic dependencies
+        run: |
+          uv pip install .
+
+      - name: Run examples
+        run: |
+          find examples/ -name "*.py" -exec uv run python3 {} \;
 ...
