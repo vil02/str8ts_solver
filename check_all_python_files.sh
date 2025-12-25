@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-declare -r DIRS="str8ts_solver/ tests/"
+declare -r DIRS="str8ts_solver/ tests/ examples/"
 
 uv run black --check ${DIRS}
 uv run ruff check ${DIRS}
