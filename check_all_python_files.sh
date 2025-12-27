@@ -4,6 +4,7 @@ set -euo pipefail
 
 declare -ar DIRS=("str8ts_solver/" "tests/" "examples/")
 
+uv run bandit -c bandit.yml -r "${DIRS[@]}"
 uv run black --check "${DIRS[@]}"
 uv run ruff check "${DIRS[@]}"
 uv run mypy "${DIRS[@]}"
