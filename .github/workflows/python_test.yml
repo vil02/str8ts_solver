@@ -73,5 +73,5 @@ jobs:
 
       - name: Run examples
         run: |
-          find examples/ -name "*.py" -exec uv run --no-sync python3 {} \;
+          find examples/ -name "*.py" -exec uv run --no-sync python3 {} +
 ...
