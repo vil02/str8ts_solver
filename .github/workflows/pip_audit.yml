@@ -1,0 +1,45 @@
+---
+name: pip_audit
+
+'on':
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    - cron: '55 1 * * 2,4'
+
+permissions:
+  contents: read
+
+jobs:
+  pip_audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install uv and setup python
+        uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7.1.6
+        with:
+          python-version: 3.13
+          activate-environment: "true"
+
+      - name: Generate requirements
+        run: |
+          uv export --no-hashes --no-dev --format requirements-txt --output-file requirements.txt
+          uv export --no-hashes --format requirements-txt --output-file dev-requirements.txt
+
+      - name: Install pip
+        run: |
+            uv pip install pip
+
+      - name: Run pip-audit
+        uses: pypa/gh-action-pip-audit@1220774d901786e6f652ae159f7b6bc8fea6d266 # v1.1.0
+        with:
+          inputs: requirements.txt dev-requirements.txt
+...
