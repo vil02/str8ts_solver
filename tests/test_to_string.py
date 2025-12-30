@@ -22,6 +22,8 @@ def _extract_test_case_blank(
         _extract_test_case_blank(samples.SAMPLE_1),
         _extract_test_case_blank(samples.SAMPLE_2),
         _extract_test_case_blank(samples.SAMPLE_3),
+        _extract_test_case_blank(samples.NO_SOLUTION),
+        _extract_test_case_blank(samples.SAMPLE_3_BY_2),
     ],
 )
 def test_to_string_with_blank(
@@ -42,6 +44,8 @@ def _extract_test_case_solved(
     dict[tuple[int, int], int],
     str,
 ]:
+    assert sample.solved is not None
+    assert sample.solved_str is not None
     return sample.size, sample.blocked, sample.known, sample.solved, sample.solved_str
 
 
@@ -51,6 +55,7 @@ def _extract_test_case_solved(
         _extract_test_case_solved(samples.SAMPLE_1),
         _extract_test_case_solved(samples.SAMPLE_2),
         _extract_test_case_solved(samples.SAMPLE_3),
+        _extract_test_case_solved(samples.SAMPLE_3_BY_2),
     ],
 )
 def test_to_string_with_solved(
