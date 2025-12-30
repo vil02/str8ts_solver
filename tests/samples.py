@@ -5,9 +5,9 @@ class Sample(typing.NamedTuple):
     size: tuple[int, int]
     blocked: set[tuple[int, int]]
     known: dict[tuple[int, int], int]
-    solved: dict[tuple[int, int], int]
+    solved: dict[tuple[int, int], int] | None
     blank_str: str
-    solved_str: str
+    solved_str: str | None
 
 
 # source:
@@ -561,4 +561,47 @@ SAMPLE_3 = Sample(
 | 1 | 2 | 3 |###| 8 | 6 | 7 |###|###|
 |   |   |   |###|   |   |   |###|###|
 +---+---+---+---+---+---+---+---+---+""",
+)
+
+
+NO_SOLUTION = Sample(
+    size=(3, 2),
+    blocked={(0, 0), (1, 1), (2, 0)},
+    known={(0, 0): 1, (1, 1): 2, (2, 0): 3},
+    solved=None,
+    blank_str="""+---+---+---+
+|###|   |###|
+|#1#|   |#3#|
+|###|   |###|
++---+---+---+
+|   |###|   |
+|   |#2#|   |
+|   |###|   |
++---+---+---+""",
+    solved_str=None,
+)
+
+SAMPLE_3_BY_2 = Sample(
+    size=(3, 2),
+    blocked={(0, 0)},
+    known={(0, 0): 1, (1, 1): 1},
+    solved={(0, 1): 3, (1, 0): 2, (1, 1): 1, (2, 0): 3, (2, 1): 2},
+    blank_str="""+---+---+---+
+|###|   |   |
+|#1#|   |   |
+|###|   |   |
++---+---+---+
+|   |  !|   |
+|   | 1 |   |
+|   |   |   |
++---+---+---+""",
+    solved_str="""+---+---+---+
+|###|   |   |
+|#1#| 2 | 3 |
+|###|   |   |
++---+---+---+
+|   |  !|   |
+| 3 | 1 | 2 |
+|   |   |   |
++---+---+---+""",
 )
