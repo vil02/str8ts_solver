@@ -1,6 +1,6 @@
 [project]
 name = "str8ts_solver"
-version = "0.2.0"
+version = "0.2.1"
 description = "str8ts solver using z3"
 authors = [
   {email = "vil02_str8ts_solver@10g.pl"},
