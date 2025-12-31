@@ -638,3 +638,20 @@ FULLY_BLOCKED_COLUMN = Sample(
 |###|   |
 +---+---+""",
 )
+
+FULLY_BLOCKED = Sample(
+    size=(1, 1),
+    blocked={(0, 0)},
+    known={},
+    solved={},
+    blank_str="""+---+
+|###|
+|###|
+|###|
++---+""",
+    solved_str="""+---+
+|###|
+|###|
+|###|
++---+""",
+)
