@@ -25,6 +25,7 @@ def _extract_test_case_blank(
         _extract_test_case_blank(samples.NO_SOLUTION),
         _extract_test_case_blank(samples.SAMPLE_3_BY_2),
         _extract_test_case_blank(samples.FULLY_BLOCKED_COLUMN),
+        _extract_test_case_blank(samples.FULLY_BLOCKED),
     ],
 )
 def test_to_string_with_blank(
@@ -58,6 +59,7 @@ def _extract_test_case_solved(
         _extract_test_case_solved(samples.SAMPLE_3),
         _extract_test_case_solved(samples.SAMPLE_3_BY_2),
         _extract_test_case_solved(samples.FULLY_BLOCKED_COLUMN),
+        _extract_test_case_solved(samples.FULLY_BLOCKED),
     ],
 )
 def test_to_string_with_solved(

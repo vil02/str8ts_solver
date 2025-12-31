@@ -25,6 +25,7 @@ def _extract_test_case(
         _extract_test_case(samples.NO_SOLUTION),
         _extract_test_case(samples.SAMPLE_3_BY_2),
         _extract_test_case(samples.FULLY_BLOCKED_COLUMN),
+        _extract_test_case(samples.FULLY_BLOCKED),
     ],
 )
 def test_solve(
