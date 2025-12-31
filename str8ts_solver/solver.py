@@ -36,6 +36,11 @@ def _add_constrains_from_blocked(
                 solver.add(unknowns[_] != known[blocked_pos])
 
 
+def _add_distinct(solver, values) -> None:
+    if len(values) > 1:
+        solver.add(z3.Distinct(*values))
+
+
 def _add_block_constrain(
     solver, unknowns, block: list[tuple[int, int]], block_id: str
 ) -> None:
@@ -44,7 +49,7 @@ def _add_block_constrain(
     for _ in block:
         solver.add(cur_limit <= unknowns[_])
         solver.add(unknowns[_] < cur_limit + len(block))
-    solver.add(z3.Distinct(*(unknowns[_] for _ in block)))
+    _add_distinct(solver, [unknowns[_] for _ in block])
 
 
 def _add_all_block_constrains(solver, unknowns, size: tuple[int, int]) -> None:
@@ -59,20 +64,20 @@ def _add_entries_in_all_rows_are_unique_constrains(
     solver, unknowns, size: tuple[int, int], blocked: set[tuple[int, int]]
 ):
     for y_pos in range(size[1]):
-        cur_row = [
-            unknowns[_] for _ in au.gen_positions_in_row(y_pos, size[0], blocked)
-        ]
-        solver.add(z3.Distinct(*cur_row))
+        _add_distinct(
+            solver,
+            [unknowns[_] for _ in au.gen_positions_in_row(y_pos, size[0], blocked)],
+        )
 
 
 def _add_entries_in_all_cols_are_unique_constrains(
     solver, unknowns, size: tuple[int, int], blocked: set[tuple[int, int]]
 ):
     for x_pos in range(size[0]):
-        cur_col = [
-            unknowns[_] for _ in au.gen_positions_in_col(x_pos, size[1], blocked)
-        ]
-        solver.add(z3.Distinct(*cur_col))
+        _add_distinct(
+            solver,
+            [unknowns[_] for _ in au.gen_positions_in_col(x_pos, size[1], blocked)],
+        )
 
 
 def _create_solver(
