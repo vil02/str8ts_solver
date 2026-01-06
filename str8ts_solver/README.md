@@ -9,29 +9,5 @@
 
 [Str8ts](https://en.wikipedia.org/wiki/Str8ts) solver using [z3](https://github.com/Z3Prover/z3).
 
-## Getting started
-
-This package is available at [PyPI](https://pypi.org/project/str8ts_solver/).
-It can be installed using the command
-
-```shell
-pip install str8ts_solver
-```
-The [`examples`](./examples) directory contains scripts showing basic usage of this package.
-
-## Information for developers
-
-This project is setup using [`uv`](https://docs.astral.sh/uv/).
-In order to create a _development environment_,
-after cloning this repository, run the command like:
-
-```shell
-uv pip install --editable .
-```
-
-[`tests`](./tests) are expressed using [`pytest`](https://docs.pytest.org/).
-
-## References
-
-- [Str8ts](https://www.str8ts.com/)
-- [Z3 Theorem Prover](https://en.wikipedia.org/wiki/Z3_Theorem_Prover)
+[Examples](https://github.com/vil02/str8ts_solver/tree/master/examples)
+and documentation can be found on [GitHub](https://github.com/vil02/str8ts_solver).

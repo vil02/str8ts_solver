@@ -1,12 +1,12 @@
 [project]
 name = "str8ts_solver"
-version = "0.2.1"
+version = "0.2.2"
 description = "str8ts solver using z3"
 authors = [
   {email = "vil02_str8ts_solver@10g.pl"},
   {name = "Piotr Idzik"}
 ]
-readme = "README.md"
+readme = "./str8ts_solver/README.md"
 requires-python = ">=3.12"
 keywords = ["str8ts", "str8ts solver", "z3"]
 
