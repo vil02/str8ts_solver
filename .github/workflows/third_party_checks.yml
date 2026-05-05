@@ -34,7 +34,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv sync
+          uv lock
+          uv sync --frozen --no-build
 
       - name: Generate coverage data
         run: |

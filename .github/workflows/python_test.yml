@@ -38,7 +38,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv sync
+          uv lock
+          uv sync --frozen --no-build
 
       - name: Run liter
         run: |
@@ -46,7 +47,7 @@ jobs:
 
       - name: Test with pytest
         run: |
-          uv run pytest .
+          uv run --frozen --no-build pytest .
 
   check_examples:
     permissions:
@@ -77,5 +78,5 @@ jobs:
 
       - name: Run examples
         run: |
-          find examples/ -name "*.py" -exec uv run --no-sync python3 {} +
+          find examples/ -name "*.py" -exec uv run --no-build --no-sync python3 {} +
 ...
