@@ -28,15 +28,13 @@ jobs:
         with:
           python-version: 3.13
           activate-environment: "true"
+        env:
+          UV_VENV_SEED: 1
 
       - name: Generate requirements
         run: |
           uv export --no-hashes --no-dev --format requirements-txt --output-file requirements.txt
           uv export --no-hashes --format requirements-txt --output-file dev-requirements.txt
-
-      - name: Install pip
-        run: |
-            uv pip install pip
 
       - name: Run pip-audit
         uses: pypa/gh-action-pip-audit@1220774d901786e6f652ae159f7b6bc8fea6d266 # v1.1.0
