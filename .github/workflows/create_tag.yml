@@ -25,6 +25,7 @@ jobs:
         with:
           python-version: 3.14
           activate-environment: "true"
+          enable-cache: "false"
 
       - name: Tag and push
         run: |
