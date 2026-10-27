@@ -61,7 +61,7 @@ def _row_to_string(
     top_row = _top_row_to_string(in_row_num, row_size, blocked, known)
     mid_row = _mid_row_to_string(in_row_num, row_size, blocked, known, solved)
     bottom_row = _bottom_row_to_string(in_row_num, row_size, blocked)
-    return "\n".join((top_row, mid_row, bottom_row))
+    return f"{top_row}\n{mid_row}\n{bottom_row}"
 
 
 def _row_separator(in_row_size: int) -> str:

@@ -114,9 +114,7 @@ def _is_input_valid(
         return False
     if not all(_is_position_valid(_, size) for _ in itertools.chain(blocked, known)):
         return False
-    if not all(0 < _ <= max(size) for _ in known.values()):
-        return False
-    return True
+    return all(0 < _ <= max(size) for _ in known.values())
 
 
 def solve(
